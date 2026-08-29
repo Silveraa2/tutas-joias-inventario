@@ -1,14 +1,28 @@
 {
-  "name": "tutas-joias-windows",
-  "version": "1.0.0",
-  "description": "Sistema de estoque e impressão de etiquetas Tutas Joias",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "build": "electron-builder --win nsis"
-  },
-  "devDependencies": {
-    "electron": "^36.0.0",
-    "electron-builder": "^26.0.0"
-  }
+    "name": "tutas-joias-windows",
+    "version": "1.0.0",
+    "description": "Sistema de estoque e impressão de etiquetas Tutas Joias",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-builder --win nsis"
+    },
+    "build": {
+        "appId": "com.tutasjoias.inventario",
+        "productName": "Tutas Joias",
+        "publish": [
+            {
+                "provider": "github",
+                "owner": "Silveraa2",
+                "repo": "tutas-joias-inventario"
+            }
+        ]
+    },
+    "devDependencies": {
+        "electron": "^36.0.0",
+        "electron-builder": "^26.0.0"
+    },
+    "dependencies": {
+        "electron-updater": "^6.8.9"
+    }
 }

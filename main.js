@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const { autoUpdater } = require('electron-updater');
 
 // Armazenamento robusto: mantém o arquivo principal no userData do Windows
 // e uma cópia de segurança na pasta do projeto quando ela for gravável.
@@ -77,6 +78,15 @@ function createWindow() {
   win.loadFile(path.join(__dirname, 'index.html'));
 }
 
+function checkForUpdates() {
+
+    if (!app.isPackaged) {
+        return;
+    }
+
+    autoUpdater.checkForUpdatesAndNotify();
+}
+
 app.whenReady().then(() => {
   ipcMain.handle('load-data', () => loadData());
   ipcMain.handle('save-data', (_, data) => saveData(data));
@@ -140,7 +150,10 @@ app.whenReady().then(() => {
 });
 
   createWindow();
-  app.on('activate', () => {
+
+checkForUpdates();
+
+app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
