@@ -153,7 +153,7 @@ createWindow();
 
 setTimeout(() => {
     checkForUpdates();
-}, 5000);
+}, 1000);
 
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
