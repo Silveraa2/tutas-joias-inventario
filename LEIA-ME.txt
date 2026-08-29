@@ -1,0 +1,25 @@
+TUTAS JOIAS — Estoque e Impressão de Etiquetas
+
+VERSÃO CORRIGIDA — SALVAMENTO ROBUSTO
+
+Como executar:
+1. Abra o Prompt de Comando dentro da pasta Tutas_Joias_Windows.
+2. Execute: npm install
+3. Execute: npm start
+
+Correção principal desta versão:
+- O estoque é salvo no armazenamento do aplicativo do Windows.
+- Uma cópia de segurança também é gravada em Documentos\Tutas Joias.
+- Quando possível, outra cópia fica na pasta dados do programa.
+- Ao abrir novamente, o sistema procura os dados salvos e recupera o estoque.
+- A versão inclui o produto de teste 001 para conferência:
+  Anel ouro com pedras de brilhante — Anel — R$ 2.890,00 — estoque 1.
+
+Também mantém:
+- Cadastro, edição e exclusão de produtos.
+- Entrada e saída de estoque.
+- Busca de produtos.
+- Fila de etiquetas.
+- Impressão para Elgin L42 Pro.
+
+Observação: o alerta de vulnerabilidades do npm não impede o teste do programa.
