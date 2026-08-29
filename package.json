@@ -1,6 +1,6 @@
 {
     "name": "tutas-joias-windows",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Sistema de estoque e impressão de etiquetas Tutas Joias",
     "main": "main.js",
     "scripts": {
