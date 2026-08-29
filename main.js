@@ -19,10 +19,14 @@ function normalizeData(data) {
     c: String(x.c ?? ''),
     n: String(x.n ?? ''),
     cat: String(x.cat ?? ''),
+
+    tipoEtiqueta: String(x.tipoEtiqueta ?? 'preco'),
+    referencia: String(x.referencia ?? ''),
+
     pre: Number(x.pre) || 0,
     q: Math.max(0, Number(x.q) || 0),
     min: Math.max(0, Number(x.min) || 0)
-  }));
+}));
   return data;
 }
 function readJson(file) {
@@ -81,12 +85,64 @@ function createWindow() {
 function checkForUpdates() {
 
     if (!app.isPackaged) {
+        console.log('Atualização ignorada: programa não está empacotado.');
         return;
     }
 
-    autoUpdater.checkForUpdatesAndNotify();
-}
+    console.log('--------------------------------');
+    console.log('INICIANDO VERIFICAÇÃO DE ATUALIZAÇÃO');
+    console.log('Versão instalada:', app.getVersion());
+    console.log('--------------------------------');
 
+    autoUpdater.on('checking-for-update', () => {
+        console.log('Verificando atualização no GitHub...');
+    });
+
+    autoUpdater.on('update-available', (info) => {
+        console.log('ATUALIZAÇÃO ENCONTRADA!');
+        console.log('Versão disponível:', info.version);
+    });
+
+    autoUpdater.on('update-not-available', (info) => {
+        console.log('Nenhuma atualização disponível.');
+        console.log('Versão informada pelo servidor:', info.version);
+    });
+
+    autoUpdater.on('download-progress', (progress) => {
+        console.log(
+            'Download:',
+            Math.round(progress.percent) + '%'
+        );
+    });
+
+    autoUpdater.on('update-downloaded', (info) => {
+        console.log('ATUALIZAÇÃO BAIXADA!');
+        console.log('Versão:', info.version);
+    });
+
+    autoUpdater.on('error', (error) => {
+        console.error('ERRO NO ATUALIZADOR:');
+        console.error(error);
+    });
+
+    autoUpdater.checkForUpdates()
+        .then(result => {
+            console.log('Verificação concluída.');
+
+            if (result && result.updateInfo) {
+                console.log(
+                    'Versão encontrada:',
+                    result.updateInfo.version
+                );
+            }
+        })
+        .catch(error => {
+            console.error(
+                'FALHA AO VERIFICAR ATUALIZAÇÃO:',
+                error
+            );
+        });
+}
 app.whenReady().then(() => {
   ipcMain.handle('load-data', () => loadData());
   ipcMain.handle('save-data', (_, data) => saveData(data));
